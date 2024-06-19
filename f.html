@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <style>
+        #myDataTable {
+           
+            width: 100%;
+			 
+        }
+         
+        
+        #myDataTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table, td, th{border: 1px solid black; text-align:center}
+		hr{border: 1px solid black; width: 95%; margin: 0 auto;}
+       
+    </style>
+</head>
+<body>
+<div style="width: 90%; margin: auto; margin-top: 200px;  ">
+    <div class="form-group row">
+        <div class="col-md-2 mr-2">
+            <label for="BranchNameList">Select BranchName</label>
+            <select name="BranchName" id="BranchNameList" class="form-control ml-2" style="width: 180px"></select>
+        </div>
+        <div class="col-md-2">
+            <label for="genSalesDay">Select Month</label>
+            <input type="month" class="form-control ml-2" style="width: 180px" id="genSalesDay" name="SalesDay">
+        </div>
+    </div>
+
+    <table id="myDataTable" style="  border-collapse: collapse;width: 100%; display: block;  font-weight: 450;">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script>
+   $(document).ready(function () {
+      var jsonData = [
+            {"BranchName": "Kapatagan","SalesDay": "Feb 01, 2024", "Branch": 25, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 02, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 03, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 04, 2024", "Branch": 35, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 05, 2024", "Branch": 22, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 06, 2024", "Branch": 29, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 07, 2024", "Branch": 31, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 08, 2024", "Branch": 27, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 09, 2024", "Branch": 32, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 10, 2024", "Branch": 26, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 11, 2024", "Branch": 34, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 12, 2024", "Branch": 33, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 13, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 14, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "Kapatagan","SalesDay": "Feb 15, 2024", "Branch": 29, "TK": 25},
+            //sa
+            {"BranchName": "ICCM","SalesDay": "Feb 01, 2024", "Branch": 25, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 02, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 03, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 04, 2024", "Branch": 35, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 05, 2024", "Branch": 22, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 06, 2024", "Branch": 29, "TK": 29},
+            {"BranchName": "ICCM","SalesDay": "Feb 07, 2024", "Branch": 31, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 08, 2024", "Branch": 27, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 09, 2024", "Branch": 32, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 10, 2024", "Branch": 26, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 11, 2024", "Branch": 34, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 12, 2024", "Branch": 33, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 13, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 14, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "ICCM","SalesDay": "Feb 15, 2024", "Branch": 29, "TK": 25},
+
+            //sas
+             //sa
+             {"BranchName": "OTON","SalesDay": "Feb 01, 2024", "Branch": 25, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 02, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 03, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 04, 2024", "Branch": 35, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 05, 2024", "Branch": 22, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 06, 2024", "Branch": 29, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 07, 2024", "Branch": 31, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 08, 2024", "Branch": 27, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 09, 2024", "Branch": 32, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 10, 2024", "Branch": 26, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 11, 2024", "Branch": 34, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 12, 2024", "Branch": 33, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 13, 2024", "Branch": 28, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 14, 2024", "Branch": 30, "TK": 25},
+            {"BranchName": "OTON","SalesDay": "Feb 15, 2024", "Branch": 29, "TK": 25}
+            ];
+               
+           var BranchNamees = [...new Set(jsonData.map(item => item.BranchName))];
+        var uniqueSalesDays = [...new Set(jsonData.map(item => item.SalesDay))];
+
+        var titleRow = '<tr><td class="  pabilin"  style="min-width:98px; " rowspan="2">BranchName</td>';
+        uniqueSalesDays.forEach(SalesDay => {
+            titleRow += '<td class="   " style="min-width:98px; ">' + SalesDay + '</td>';
+        });
+        titleRow += '</tr><tr>';
+        uniqueSalesDays.forEach(() => {
+            titleRow += '<td class="tbl1 pabilin" style="background:#3498DB; color: white; font-weight:600  ">SymPOS<br><hr>Turnkey</td>';
+        });
+        titleRow += '</tr>';
+		 $('#myDataTable thead').append(titleRow);
+
+        BranchNamees.forEach(BranchName => {
+            var BranchNameData = jsonData.filter(item => item.BranchName === BranchName);
+            var Branch = BranchNameData.map(item => item.Branch);
+            var TK = BranchNameData.map(item => item.TK);
+
+            var BranchNameRow = '<tr class="row1"><td class="tbl" style="min-width:100px;">' + BranchName + '</td>';
+            for (var i = 0; i < Branch.length; i++) {
+                var color = (Branch[i] === TK[i]) ? '#C9FFE5' : '#FFDBDB';
+                BranchNameRow += '<td style="min-width:100px;  text-align:center; background: ' + color + ';">' + Branch[i] + '<br><hr>' + TK[i] + '</td>';
+            }
+            BranchNameRow += '</tr>';
+
+            $('#myDataTable tbody').append(BranchNameRow);
+        });
+
+        $('#BranchNameList').empty().append($('<option>', {value: '', text: 'Select'}));
+        BranchNamees.forEach(BranchName => {
+            $('#BranchNameList').append($('<option>', {value: BranchName, text: BranchName}));
+        });
+
+         
+        $('#myDataTable').DataTable({
+            scrollX: true,
+            scrollCollapse: true,
+           paging: false,
+            searching: true,
+            ordering: false
+        });
+
+        $('#BranchNameList').change(function () {
+            var selectedBranchName = $(this).val();
+            $('#myDataTable').DataTable().column(0).search(selectedBranchName).draw();
+        });
+    });
+</script>
+</body>
+</html>

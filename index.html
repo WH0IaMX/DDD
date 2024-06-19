@@ -1,52 +1,177 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Hero-Clean-images.css">
-    <link rel="stylesheet" href="assets/css/Image-slider-carousel-With-arrow-buttons-image_slider.css">
-    <link rel="stylesheet" href="assets/css/Image-slider-carousel-With-arrow-buttons.css">
-    <link rel="stylesheet" href="assets/css/responsive_image_grid_12073_SaraSantos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 300px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .card {
+            width: 300px;
+            height: 250px;
+            perspective: 800px;
+            cursor: pointer;
+			 
+			 
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #D9E4E5;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-back img {
+            width: 300px; /* Set a fixed width for the images */
+            height: 250px; /* Set a fixed height for the images */
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container py-4 py-xl-5">
-        <div class="row gy-4 gy-md-0">
-            <div class="col-md-6">
-                <div class="p-xl-5 m-xl-5"><img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="assets/img/image_2024-06-05_161815412.png"></div>
-            </div>
-            <div class="col-md-6 d-md-flex align-items-md-center">
-                <div style="max-width: 350px;">
-                    <h2 class="text-uppercase fw-bold">Skype Gallery</h2>
-                    <p class="my-3">See below...........</p><img src="assets/img/RightArrow.png" width="170" height="172" style="transform: perspective(0px) translate(21px) scale(0.85) skew(136deg);transition: ease-in;">
-                </div>
-            </div>
-        </div>
+    <div class="game-container">
+        <h1>Matching Game</h1>
+        <div id="game-board" class="game-board"></div>
+        <div class="score" style="font-size:30px">Score: <span id="score">0</span></div>
     </div>
-    <div class="container d-flex flex-column align-items-center py-4 py-xl-5">
-        <div class="rig-header">
-            <div>
-                <h2 class="rig-h2">Photos</h2>
-                <p class="rig-p">&nbsp;</p>
-                <div class="rig-row">
-                    <div class="rig-column"><img src="assets/img/448177989_1161058368268071_2998856872703174692_n.jpg"><img src="assets/img/430866131_965699985123178_8805993539793971068_n.jpg"><img src="assets/img/448357757_709816207881561_3151574008032127490_n.jpg"></div>
-                    <div class="rig-column"><img src="assets/img/448357757_709816207881561_3151574008032127490_n.jpg"><img src="assets/img/448357692_479860421077587_6487365975184211426_n.jpg"><img src="https://www.w3schools.com/w3images/wedding.jpg"><img src="https://www.w3schools.com/w3images/mountainskies.jpg"><img src="assets/img/image_2024_04_04T01_10_14_883Z.png"></div>
-                    <div class="rig-column"><img src="assets/img/448448886_2968785499930896_3748549602425781419_n.jpg"><img src="assets/img/C717AFC7-CB5B-4C93-8F4A-4D2CB672FC13.jpg"><img src="assets/img/image_2024_03_21T03_27_44_418Z.png"><img src="assets/img/448514030_441256405469254_6822126264458811064_n.jpg"><img src="https://www.w3schools.com/w3images/mist.jpg"><img src="assets/img/C717AFC7-CB5B-4C93-8F4A-4D2CB672FC13.jpg"></div>
-                    <div class="rig-column"><img src="assets/img/448514030_441256405469254_6822126264458811064_n.jpg"><img src="https://www.w3schools.com/w3images/ocean.jpg"><img src="assets/img/image_2024-06-05_161815412.png"><img src="assets/img/448448886_2968785499930896_3748549602425781419_n.jpg"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-5">
-            <div class="col">
-                <h2></h2>
-            </div>
-        </div>
-    </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/Image-slider-carousel-With-arrow-buttons-image_slider.js"></script>
-</body>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = [
+                'assets/img/image_2024-06-05_161815412.png', 'assets/img/448514030_441256405469254_6822126264458811064_n.jpg',
+				'assets/img/448448886_2968785499930896_3748549602425781419_n.jpg', 'assets/img/448177989_1161058368268071_2998856872703174692_n.jpg' 
+            ];
+            let cards = [...images, ...images];
+            let gameBoard = document.getElementById('game-board');
+            let scoreDisplay = document.getElementById('score');
+            let score = 0;
+            let hasFlippedCard = false;
+            let lockBoard = false;
+            let firstCard, secondCard;
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            function createBoard() {
+                shuffle(cards);
+                cards.forEach((image, index) => {
+                    let card = document.createElement('div');
+                    card.classList.add('card');
+                    card.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front"></div>
+                            <div class="card-back">
+                                <img src="${image}" alt="Card image">
+                            </div>
+                        </div>
+                    `;
+                    card.addEventListener('click', flipCard);
+                    gameBoard.appendChild(card);
+                });
+            }
+
+            function flipCard() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+
+                this.classList.add('flipped');
+                
+                if (!hasFlippedCard) {
+                    hasFlippedCard = true;
+                    firstCard = this;
+                    return;
+                }
+
+                secondCard = this;
+                checkForMatch();
+            }
+
+            function checkForMatch() {
+                let isMatch = firstCard.querySelector('.card-back img').src === secondCard.querySelector('.card-back img').src;
+                isMatch ? disableCards() : unflipCards();
+            }
+
+            function disableCards() {
+                firstCard.removeEventListener('click', flipCard);
+                secondCard.removeEventListener('click', flipCard);
+                resetBoard();
+                updateScore();
+            }
+
+            function unflipCards() {
+                lockBoard = true;
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    resetBoard();
+                }, 1500);
+            }
+
+            function resetBoard() {
+                [hasFlippedCard, lockBoard] = [false, false];
+                [firstCard, secondCard] = [null, null];
+            }
+
+            function updateScore() {
+                score += 1;
+                scoreDisplay.textContent = score;
+            }
+
+            createBoard();
+        });
+    </script>
+</body>
 </html>
